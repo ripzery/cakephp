@@ -149,7 +149,6 @@
                            value="<?php echo $cardstatements['0']['CardStatement']['price']; ?>" readonly>
                 </div>
 
-
                 <div class="col-lg-6">
                     <?php
                     echo $this->Paginator->prev(

@@ -40,7 +40,19 @@ class AppController extends Controller {
             'loginAction' => array('controller' => 'users', 'action' => 'login'),
             'loginRedirect' => array('controller' => 'homes', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-            'authorize' => array('Controller')
+            'authorize' => array('Controller'),
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array(
+                        'username' => 'username', //Default is 'username' in the userModel
+                        'password' => 'password'  //Default is 'password' in the userModel
+                    ),
+                    'passwordHasher' => array(
+                        'className' => 'Simple',
+                        'hashType' => 'sha1'
+                    )
+                )
+            )
         )
     );
 
@@ -48,14 +60,10 @@ class AppController extends Controller {
 //    var $components = array('Auth');
 
     function beforeFilter() {
-//        Security::setHash('md5'); // or sha1 or sha256.
+        Security::setHash('sha1'); // or sha1 or sha256.
         $this->Auth->allow('homes','index');
         $this->Auth->allow('users','login');
-        $this->Auth->allow('cardstatements','edit','save','insert');
         //Configure AuthComponent
-//        $this->Auth->loginAction = array('controller' => 'users', 'action' => 'login');
-//        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
-//        $this->Auth->loginRedirect = array('controller' => 'homes', 'action' => 'index');
     }
 
 //    public function isAuthorized($user)

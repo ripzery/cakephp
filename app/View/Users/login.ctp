@@ -10,7 +10,7 @@
             </div>
             <div class="panel-body">
                 <?php echo $this->Session->flash('auth'); ?>
-                <?php echo $this->Form->create('User'); ?>
+                <?php echo $this->Form->create('Users'); ?>
                 <fieldset>
                     <div class="form-group">
                         <?php echo $this->Form->input('username', array('class' => 'form-control')); ?>
@@ -21,7 +21,7 @@
                         ?>
                     </div>
                     <?php
-                    echo $this->Form->button('Login', array('type' => 'submit', 'name' => 'submit', 'class' => 'btn btn-lg btn-success btn-block'));
+                    echo $this->Form->submit('Login', array('type' => 'submit', 'name' => 'submit', 'class' => 'btn btn-lg btn-success btn-block'));
                     ?>
 
                 </fieldset>

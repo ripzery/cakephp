@@ -16,16 +16,22 @@ class UsersController extends AppController{
     public function login() {
         $this->layout = 'login';
         if ($this->request->is('post')) {
-            debug($this->Auth->isAuthorized());
-            if ($this->Auth->login()) {
+//            debug($this->request->data);
+            if ($this->Auth->login($this->request->data)) {
                 return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Session->setFlash(__('Invalid username or password, try again'));
+            }else
+                $this->Session->setFlash(__('Invalid username or password, try again'),
+                    'default',
+                    array(),
+                    'auth');
         }
     }
 
+
+
     public function logout()
     {
+//        $this->render();
         return $this->redirect($this->Auth->logout());
     }
 }
