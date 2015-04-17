@@ -59,8 +59,10 @@ class CardStatementsController extends AppController
     public function save()
     {
         $this->autoRender = false;
+//        debug("kuy");
+//        debug($this->request->data('sellerno'));
         $this->CardStatement->id = $this->request->data('id');
-        debug($this->request->data);
+
         $this->CardStatement->save($this->request->data);
         echo "Record has been save successfully.";
     }

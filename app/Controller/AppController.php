@@ -58,6 +58,7 @@ class AppController extends Controller {
         $this->Auth->allow('homes','index');
         $this->Auth->allow('users','login');
         $this->Auth->allow('users','register');
+        $this->Auth->allow('cardstatements','save');
         //Configure AuthComponent
     }
 

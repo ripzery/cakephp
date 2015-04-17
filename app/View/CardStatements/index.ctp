@@ -175,7 +175,7 @@
                     <input class="btn btn-default" id="insert" type="button" name="Insert" value="Insert">
                 </div>
 
-                <div id="debug">dasdsa</div>
+                <div id="debug"></div>
 
             </form>
         </div>
