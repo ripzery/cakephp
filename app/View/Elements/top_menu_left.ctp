@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.html">
+    <a class="navbar-brand" href="/assignment2/homes">
         <?php echo $this->Html->image('logo.png',array(
             'style' => 'width:25%;'
         )) ?>

@@ -46,39 +46,28 @@ class AppController extends Controller {
                     'fields' => array(
                         'username' => 'username', //Default is 'username' in the userModel
                         'password' => 'password'  //Default is 'password' in the userModel
-                    ),
-                    'passwordHasher' => array(
-                        'className' => 'Simple',
-                        'hashType' => 'sha1'
                     )
                 )
             )
         )
     );
 
-
 //    var $components = array('Auth');
 
     function beforeFilter() {
-        Security::setHash('sha1'); // or sha1 or sha256.
         $this->Auth->allow('homes','index');
         $this->Auth->allow('users','login');
+        $this->Auth->allow('users','register');
         //Configure AuthComponent
     }
 
-//    public function isAuthorized($user)
-//    {
-//        // Admin can access every action
-//        if (isset($user['role']) && $user['username'] === 'admin') {
-//            return true;
-//        }
-//        // The owner of a post can edit and delete it
-//        if (in_array($this->action, array('edit', 'delete'))) {
-//            $postId = $this->request->params['pass'][0];
-//            if ($this->Post->isOwnedBy($postId, $user['id'])) {
-//                return true;
-//            }
-//        }
-//        return parent::isAuthorized($user);
-//    }
+    public function isAuthorized($user) {
+        // Admin can access every action
+        if ($user['username'] === 'admin') {
+            return true;
+        }
+
+        // Default deny
+        return false;
+    }
 }

@@ -15,7 +15,17 @@ class CardInfosController extends AppController{
 
     public function index()
     {
-        $this->set('cardinfos', $this->CardInfo->find('all'));
+        $user_id = $this->Auth->user('id');
+        if($this->Auth->isAuthorized()){
+
+            $this->set('cardinfos', $this->CardInfo->find('all'));
+
+        }
+        else{
+            $this->set('cardinfos', $this->CardInfo->find('all',array(
+                'conditions' => array('CardInfo.uid' => $user_id)
+            )));
+        }
     }
 
     public function view($id = null)

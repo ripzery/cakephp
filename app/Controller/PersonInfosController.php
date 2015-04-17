@@ -10,28 +10,29 @@ class PersonInfosController extends AppController
 {
 //    public $name = "PersonInfo";
 
-    public function isAuthorized($user)
-    {
+
+    public function isAuthorized($user) {
         // All registered users can add posts
         return parent::isAuthorized($user);
     }
 
-
     public function index()
     {
-        $this->set('personinfos', $this->PersonInfo->find('all'));
-        $this->set('numberpersons', count($this->PersonInfo->find('all')));
+        $user_id = $this->Auth->user('id');
+
+        if($this->Auth->isAuthorized()){
+            $this->set('personinfos', $this->PersonInfo->find('all'));
+            $this->set('numberpersons', count($this->PersonInfo->find('all')));
+        }else{
+//            debug($this->PersonInfo->find('all',array(
+//                'conditions' => array('PersonInfo.id' => $user_id)
+//            )));
+            $this->set('personinfos', $this->PersonInfo->find('all',array(
+                'conditions' => array('PersonInfo.id' => $user_id)
+            )));
+            $this->set('numberpersons', count($this->PersonInfo->findById($user_id)));
+        }
+
     }
 
-    public function view($id = null)
-    {
-        if (!$id) {
-            throw new NotFoundException(__('Invalid personinfo'));
-        }
-        $personinfo = $this->PersonInfo->findById($id);
-        if (!$personinfo) {
-            throw new NotFoundException(__('Invalid personinfo'));
-        }
-        $this->set('personinfo', $personinfo);
-    }
 }

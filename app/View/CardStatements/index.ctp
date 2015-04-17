@@ -1,97 +1,103 @@
 <head>
-    <script>
-                $(document).ready(function(){
-                    var max = <?php echo $cardcounts ?>
-
-                    $("#insert").on("click", function () {
-                        isInsert = true;
-                        $('#id').val(parseInt(max) + 1);
-                        setCardStateReadOnly(false);
-        //                if (!isAdmin) {
-        //                    $('#userid').prop('readonly', true);
-        //                    $('#cardno').prop('readonly', true);
-        //                }
-                        $('#edit').prop('disabled', true);
-                    });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var max = <?php echo $cardcounts; ?>;
+            var isAdmin = <?php echo $isadmin; ?>;
 
 
-                    $("#edit").on("click", function () {
-                        isInsert = false;
-                        $('#save').prop('disabled', false);
-                        $('#edit').prop('disabled', true);
-                        $('#sellerno').prop("readonly", false);
-                        $('#product').prop("readonly", false);
-                        $('#price').prop("readonly", false);
+            $("#insert").on("click", function () {
 
-                    });
+                isInsert = true;
+                $('#id').val(parseInt(max) + 1);
+                setCardStateReadOnly(false);
 
-                    $("#save").on("click", function () {
+                if (!isAdmin) {
+                    $('#userid').prop('readonly', true);
+                    $('#cardno').prop('readonly', true);
+                }
+                $('#edit').prop('disabled', true);
+            });
+
+
+            $("#edit").on("click", function () {
+                isInsert = false;
+                $('#save').prop('disabled', false);
+                $('#edit').prop('disabled', true);
+                $('#sellerno').prop("readonly", false);
+                $('#product').prop("readonly", false);
+                $('#price').prop("readonly", false);
+
+            });
+
+            $("#save").on("click", function () {
 //                        var data = $(this).serialize();
-                        if (isInsert) {
-                            $.ajax({
-                                type: "POST",
-                                async: true,
-                                url: "/assignment2/cardstatements/save",
-                                data:
-                                {
-                                    'sellerno': $('#sellerno').val(),
-                                    'product': $('#product').val(),
-                                    'price': $('#price').val(),
-                                    'id': $('#id').val(),
-                                    'number': $('#cardno').val(),
-                                    'userid': $('#userid').val(),
-                                    'date': $('#date').val()
-                                },
+                if (isInsert) {
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "/assignment2/cardstatements/save",
+                        data: {
+                            'sellerno': $('#sellerno').val(),
+                            'product': $('#product').val(),
+                            'price': $('#price').val(),
+                            'id': $('#id').val(),
+                            'number': $('#cardno').val(),
+                            'userid': $('#userid').val(),
+                            'date': $('#date').val()
+                        },
 
-                                success: function (return_value) {
-                                    $('#debug').html(return_value);
-                                    setCardStateReadOnly(true);
-                                    max = (parseInt(max) + 1);
-                                }
-                            });
-                        } else {
-                            $.ajax({
-                                type: "POST",
-                                async: true,
-                                url: "/assignment2/cardstatements/save",
-                                data:
-                                {
-                                    'sellerno': $('#sellerno').val(),
-                                    'product': $('#product').val(),
-                                    'price': $('#price').val(),
-                                    'id': $('#id').val()
-                                },
-                                success: function (return_value) {
-                                    $('#debug').html(return_value);
-//                                    alert(return_value);
-                                    setCardStateReadOnly(true);
-                                }
-                            });
+                        success: function (return_value) {
+                            $('#debug').html(return_value);
+                            setCardStateReadOnly(true);
+                            max = (parseInt(max) + 1);
                         }
                     });
-                });
-
-//         set attribute of the element in card_statement.php
-                function setCardStateReadOnly(isReadOnly) {
-                    $('#save').prop('disabled', isReadOnly);
-                    $('#userid').prop("readonly", isReadOnly);
-                    $('#cardno').prop("readonly", isReadOnly);
-                    $('#date').prop("readonly", isReadOnly);
-                    $('#sellerno').prop("readonly", isReadOnly);
-                    $('#product').prop("readonly", isReadOnly);
-                    $('#price').prop("readonly", isReadOnly);
-                    $('#edit').prop("disabled", !isReadOnly);
-                    if (!isReadOnly) {
-        //                if (isAdmin) {
-                            $('#userid').val("");
-                            $('#cardno').val("");
-        //                }
-                        $('#date').val("");
-                        $('#sellerno').val("");
-                        $('#product').val("");
-                        $('#price').val("");
-                    }
+                } else {
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "/assignment2/cardstatements/save",
+                        data: {
+                            'sellerno': $('#sellerno').val(),
+                            'product': $('#product').val(),
+                            'price': $('#price').val(),
+                            'id': $('#id').val()
+                        },
+                        success: function (return_value) {
+                            $('#debug').html(return_value);
+//                                    alert(return_value);
+                            setCardStateReadOnly(true);
+                        }
+                    });
                 }
+            });
+        });
+
+        //         set attribute of the element in card_statement.php
+        function setCardStateReadOnly(isReadOnly) {
+            var isAdmin = <?php echo $isadmin; ?>;
+
+            $('#save').prop('disabled', isReadOnly);
+            $('#userid').prop("readonly", isReadOnly);
+            $('#cardno').prop("readonly", isReadOnly);
+            $('#date').prop("readonly", isReadOnly);
+            $('#sellerno').prop("readonly", isReadOnly);
+            $('#product').prop("readonly", isReadOnly);
+            $('#price').prop("readonly", isReadOnly);
+            $('#edit').prop("disabled", !isReadOnly);
+            $('#insert').prop("disabled", !isReadOnly);
+
+            if (!isReadOnly) {
+                if (isAdmin) {
+                    $('#userid').val("");
+                    $('#cardno').val("");
+                }
+                $('#date').val("");
+                $('#sellerno').val("");
+                $('#product').val("");
+                $('#price').val("");
+            }
+        }
     </script>
 </head>
 
@@ -169,7 +175,7 @@
                     <input class="btn btn-default" id="insert" type="button" name="Insert" value="Insert">
                 </div>
 
-                <div id="debug"></div>
+                <div id="debug">dasdsa</div>
 
             </form>
         </div>

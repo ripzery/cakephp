@@ -21,7 +21,7 @@
                         ?>
                     </div>
                     <?php
-                    echo $this->Form->submit('Login', array('type' => 'submit', 'name' => 'submit', 'class' => 'btn btn-lg btn-success btn-block'));
+                    echo $this->Form->submit('Login', array('class' => 'btn btn-lg btn-success btn-block'));
                     ?>
 
                 </fieldset>

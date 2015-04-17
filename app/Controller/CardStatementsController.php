@@ -16,7 +16,10 @@ class CardStatementsController extends AppController
             'CardStatement.id' => 'asc'
         ),
         'limit' => 1
+
     );
+
+
 
     public $helpers = array('Html', 'Form', 'Js' => array("Jquery"));
 
@@ -27,10 +30,29 @@ class CardStatementsController extends AppController
 
     public function index()
     {
-        $this->Paginator->settings = $this->paginate;
+
+        $isAdmin = $this->Auth->isAuthorized();
+        if($isAdmin)
+            $this->set('isadmin',1);
+        else
+            $this->set('isadmin',0);
+
+//        debug($this->Auth->isAuthorized());
+        if($this->Auth->isAuthorized()){
+            $this->Paginator->settings = $this->paginate;
 //        debug($this->paginate('CardStatement'));
-        $this->set('cardstatements', $this->paginate('CardStatement'));
-        $this->set('cardcounts', count($this->CardStatement->find('all')));
+            $this->set('cardstatements', $this->paginate('CardStatement'));
+            $this->set('cardcounts', count($this->CardStatement->find('all')));
+        }else{
+            $this->paginate['conditions'] = array('CardStatement.uid' => $this->Auth->user('id'));
+            $this->Paginator->settings = $this->paginate;
+            $this->set('cardstatements', $this->paginate('CardStatement'));
+            $this->set('cardcounts', count($this->CardStatement->find('all',array(
+                'conditions' => array('CardStatement.uid' => $this->Auth->user('id'))
+            ))));
+        }
+
+
 
     }
 
@@ -41,5 +63,14 @@ class CardStatementsController extends AppController
         debug($this->request->data);
         $this->CardStatement->save($this->request->data);
         echo "Record has been save successfully.";
+    }
+
+    public function isAdmin(){
+        $this->autoRender = false;
+        if($this->Auth->isAuthorized()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }
