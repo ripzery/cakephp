@@ -52,9 +52,5 @@ class Transaction extends AppModel
             )
         )
     );
-
-    public function index()
-    {
-        $this->set('cardstatement', $this->CardStatement->fint('all'));
-    }
+    
 }

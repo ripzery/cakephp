@@ -59,7 +59,18 @@ class AppController extends Controller {
         $this->Auth->allow('users','login');
         $this->Auth->allow('users','register');
         $this->Auth->allow('cardstatements','save');
+        $this->Auth->allow('cardstatements','genxml');
+        $this->Auth->allow('cardstatements','transactions');
+
         //Configure AuthComponent
+        if($this->Auth->user('username') == 'admin')
+        {
+            $this->set('is_admin', 1);
+        }
+        else
+        {
+            $this->set('is_admin', 0);
+        }
     }
 
     public function isAuthorized($user) {

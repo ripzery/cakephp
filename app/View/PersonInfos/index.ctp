@@ -16,7 +16,8 @@
         <div class="panel-body">
             <ul class="chat">
 
-                <?php foreach($personinfos as $person): ?>
+
+                <?php if($personinfos == null) echo "Empty profile"; foreach($personinfos as $person): ?>
                     <li class="left clearfix">
                     <span class="chat-img pull-left">
                         <img src="img/icon-user-default.png" width="96" height="96" style="margin-right: 16px;" alt="User Avatar" class="img-circle" />

@@ -2,7 +2,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var max = <?php echo $cardcounts; ?>;
-            var isAdmin = <?php echo $isadmin; ?>;
+            var isAdmin = <?php echo $is_admin; ?>;
 
 
             $("#insert").on("click", function () {
@@ -113,7 +113,9 @@
         <div class="panel-body">
             <form name="card">
                 <div class="form-group">
+                    <?php if( $cardstatements != null){ ?>
                     <label>Transaction No</label>
+
                     <input class="form-control" id="id" name="id" type="number"
                            value="<?php echo $cardstatements['0']['CardStatement']['id']; ?>" min="0"
                            maxlength="255" readonly>
@@ -174,6 +176,8 @@
                     <input id="save" type="button" class="btn btn-default" name="save" value="Save" disabled>
                     <input class="btn btn-default" id="insert" type="button" name="Insert" value="Insert">
                 </div>
+                <?php }else echo "Empty statement"; ?>
+
 
                 <div id="debug"></div>
 

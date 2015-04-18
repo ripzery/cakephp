@@ -25,11 +25,14 @@
                 <a href="/assignment2/cardstatements" id="card_stat"><i class="fa fa-edit fa-fw"></i> Card Statement</a>
             </li>
             <li>
-                <a href="/assignment2/transactions" id="transaction"><i class="fa fa-wrench fa-fw"></i> Transactions</a>
+                <a href="/assignment2/cardstatements/transactions" id="transaction"><i class="fa fa-wrench fa-fw"></i> Transactions</a>
             </li>
-            <li>
-                <a href="/assignment2/searchnews" id="search_news"><i class="fa fa-sitemap fa-fw"></i> Search News</a>
-            </li>
+            <?php if ($is_admin) { ?>
+                <li>
+                    <a href="/assignment2/searchnews" id="search_news"><i class="fa fa-sitemap fa-fw"></i> Search News
+                    </a>
+                </li>
+            <?php } ?>
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

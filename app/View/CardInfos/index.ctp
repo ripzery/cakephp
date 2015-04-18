@@ -36,7 +36,14 @@
                                 <td><?php echo $card['CardInfo']['limit']; ?></td>
                                 <td><?php echo $card['CardInfo']['currency']; ?></td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach; if($cardinfos == null){
+                            echo "<td> Empty Cardinfo </td>";
+                            echo "<td> Empty Cardinfo </td>";
+                            echo "<td> Empty Cardinfo </td>";
+                            echo "<td> Empty Cardinfo </td>";
+                            echo "<td> Empty Cardinfo </td>";
+                            echo "<td> Empty Cardinfo </td>";
+                        }?>
                         </tbody>
                     </table>
                 </div>

@@ -1,7 +1,15 @@
 <?php
 
-$xmlObject = simplexml_load_file("files/transactions.xml");
+//$xmlObject = simplexml_load_file("files/transactions.xml");
 
+
+//debug(Set::countDim($xmlObject));
+//debug($xmlObject);
+if(Set::countDim($xmlObject) == 5){
+    $transactions = $xmlObject['response']['transactions']['transaction'];
+}else{
+    $transactions = $xmlObject['response']['transactions'];
+}
 ?>
 <div class="row">
     <div class="col-lg-12">
@@ -33,17 +41,26 @@ $xmlObject = simplexml_load_file("files/transactions.xml");
                         </thead>
                         <tbody>
                         <?php
-                        foreach ($xmlObject->transactions->transaction AS $transaction) {
+                        if($transactions != null)
+                        foreach ($transactions AS $transaction) {
                             ?>
                             <tr>
-                                <td><?php echo $transaction->id; ?></td>
-                                <td><?php echo $transaction->uid; ?></td>
-                                <td><?php echo $transaction->date; ?></td>
-                                <td><?php echo $transaction->sellerno; ?></td>
-                                <td><?php echo $transaction->product; ?></td>
-                                <td><?php echo $transaction->price; ?></td>
-                                <td><?php echo $transaction->number; ?></td>
+                                <td><?php echo $transaction['transno']; ?></td>
+                                <td><?php echo $transaction['uid']; ?></td>
+                                <td><?php echo $transaction['date']; ?></td>
+                                <td><?php echo $transaction['sellerno']; ?></td>
+                                <td><?php echo $transaction['product']; ?></td>
+                                <td><?php echo $transaction['price']; ?></td>
+                                <td><?php echo $transaction['number']; ?></td>
                             </tr>
+                        <?php }else{ ?>
+                            <td> <?php echo "Empty transactions" ?> </td>
+                            <td> <?php echo "Empty transactions" ?> </td>
+                            <td> <?php echo "Empty transactions" ?> </td>
+                            <td> <?php echo "Empty transactions" ?> </td>
+                            <td> <?php echo "Empty transactions" ?> </td>
+                            <td> <?php echo "Empty transactions" ?> </td>
+                            <td> <?php echo "Empty transactions" ?> </td>
                         <?php } ?>
                         </tbody>
                     </table>
