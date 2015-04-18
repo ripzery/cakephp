@@ -85,6 +85,11 @@ class CardStatementsController extends AppController
 
         if ($uid == null) {
             $uid = $this->request->query['uid'];
+            if($uid==null)
+            {
+                $this->set('xmlString',"Please specify uid in the url request, For example : http://localhost/assignment2/cardstatements/genxml?uid=1");
+                return;
+            }
         }
 
         if ($uid == 1) {
