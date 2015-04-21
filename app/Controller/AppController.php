@@ -41,26 +41,18 @@ class AppController extends Controller {
             'loginRedirect' => array('controller' => 'homes', 'action' => 'index'),
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'authorize' => array('Controller'),
-            'authenticate' => array(
-                'Form' => array(
-                    'fields' => array(
-                        'username' => 'username', //Default is 'username' in the userModel
-                        'password' => 'password'  //Default is 'password' in the userModel
-                    )
-                )
-            )
         )
     );
 
 //    var $components = array('Auth');
 
     function beforeFilter() {
-        $this->Auth->allow('homes','index');
+//        $this->Auth->allow('homes','index');
         $this->Auth->allow('users','login');
         $this->Auth->allow('users','register');
         $this->Auth->allow('cardstatements','save');
         $this->Auth->allow('cardstatements','genxml');
-        $this->Auth->allow('cardstatements','transactions');
+//        $this->Auth->allow('cardstatements','transactions');
 
         //Configure AuthComponent
         if($this->Auth->user('username') == 'admin')
@@ -74,6 +66,17 @@ class AppController extends Controller {
     }
 
     public function isAuthorized($user) {
+        // Admin can access every action
+        if ($user['username'] != null) {
+            return true;
+        }
+
+
+        // Default deny
+        return false;
+    }
+
+    public function isAdmin($user) {
         // Admin can access every action
         if ($user['username'] === 'admin') {
             return true;

@@ -29,7 +29,7 @@
             </li>
             <?php if ($is_admin) { ?>
                 <li>
-                    <a href="/assignment2/searchnews" id="search_news"><i class="fa fa-sitemap fa-fw"></i> Search News
+                    <a href="/assignment2/rss" id="search_news"><i class="fa fa-sitemap fa-fw"></i> Search News
                     </a>
                 </li>
             <?php } ?>

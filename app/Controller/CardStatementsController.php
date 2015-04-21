@@ -70,16 +70,6 @@ class CardStatementsController extends AppController
         echo "Record has been save successfully.";
     }
 
-    public function isAdmin()
-    {
-        $this->autoRender = false;
-        if ($this->Auth->isAuthorized()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public function genxml($uid = null)
     {
 

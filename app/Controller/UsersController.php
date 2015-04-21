@@ -21,18 +21,16 @@ class UsersController extends AppController{
     public function login() {
         $this->layout = 'login';
 
-        if($this->Auth->user('id') != null){
-            $this->redirect($this->Auth->redirectUrl());
-        }
-
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 return $this->redirect($this->Auth->redirectUrl());
             }else
-                $this->Session->setFlash(__('Invalid username or password, try again'),
-                    'default',
+                $this->Session->setFlash(
+                    __('Username or password is incorrect'),
+                    'flash/error',
                     array(),
-                    'auth');
+                    'auth'
+                );
         }
 
     }
@@ -56,19 +54,10 @@ class UsersController extends AppController{
         }
     }
 
-    public function isAuthorized($user) {
-        // Admin can access every action
-        if (isset($user['role']) && $user['role'] === 'admin') {
-            return true;
-        }
-
-        // Default deny
-        return false;
-    }
 
     public function logout()
     {
-        debug($this->redirect($this->Auth->logout()));
+        $this->layout = 'login';
         return $this->redirect($this->Auth->logout());
     }
 }

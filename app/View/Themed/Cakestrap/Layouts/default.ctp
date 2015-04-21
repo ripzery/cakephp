@@ -26,13 +26,14 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         <?php echo $cakeDescription ?>:
         <?php echo $title_for_layout; ?>
     </title>
-    <?php
+    <?
     echo $this->Html->meta('icon');
 
     echo $this->fetch('meta');
 
     echo $this->Html->css('bootstrap.min');
     echo $this->Html->css('sb-admin-2');
+    echo $this->Html->css('font-awesome');
 
     echo $this->fetch('css');
 
@@ -57,7 +58,8 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
         <!-- /#header .container -->
     </nav>
         <div id="page-wrapper">
-            <?php echo $this->Session->flash(); ?>
+            <?php echo $this->Session->flash('auth'); ?>
+
             <?php echo $this->fetch('content'); ?>
         </div>
         <!-- /#content .container -->
